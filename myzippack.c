@@ -3,7 +3,7 @@
 #include <sys/types.h>
 
 
-#include "s_Header.h"
+#include "s_header.h"
 
 struct s_Header comp;
 
@@ -21,7 +21,7 @@ int main(int argc , char *argv[]){
 
   int size = lseek(argv[1], SEEK_END);
   if(argc == 2){
-   int fich = open(argv[1],O_CREAT|O_WRONLY, 0600);
+   int fich = open(argv[1],O_RDONLY, 0600);
    write(fich,fich,size);
    close(fich);
    return 0;
