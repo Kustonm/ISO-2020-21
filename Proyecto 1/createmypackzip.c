@@ -21,11 +21,6 @@ int main(int argc , char *argv[]){
    fprintf(stderr,"Fichero inexistente \n");
    exit(2);
   }
-  
-  if(open(argv[2],O_RDONLY,0600) == -1){
-    fprintf(stderr, "Introduzca el nombre del fichero de salida \n");
-    exit(3);
-  }
 
   long size = lseek(argv[1], SEEK_END,0);
   char buff [512];
@@ -36,7 +31,7 @@ int main(int argc , char *argv[]){
     comp.FileInfo.Compress = "n";
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
-    comp.FileInfo.DataPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
+    comp.FileInfo.DatPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
     int i = 0;
     for (i; i < sizeof(argv[1]); i++)
     {
