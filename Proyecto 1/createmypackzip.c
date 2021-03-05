@@ -37,7 +37,7 @@ int main(int argc , char *argv[]){
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
     if(comp.FileInfo.DataPosition != 0){
-      comp.FileInfo.DataPosition = comp.FileInfo.DataPosition +1;
+      comp.FileInfo.DataPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
     }else{
       comp.FileInfo.DataPosition = 0;
     }
@@ -48,9 +48,26 @@ int main(int argc , char *argv[]){
     }
    vector.vHead[0] = comp;
    int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
-   while(read(fichE,buff,1) != 0){
+  for (i = 0; i < 256; i++)
+  {
+    write(fichS,'+',1);
+  }
+  write(fichS,'\n',1);
+  write(fichs,"+ Tipo: %c +\n + Compresion: %c + \n + Tamano: %lu + \n + TamanoComp: %lu + \n + Nombre: %c + \n + DataPos: %lu + \n",
+                                comp.FileInfo.Type,comp.FileInfo.Compress,size,comp.FileInfo.CompSize,comp.FileInfo.DataFileName[i],comp.FileInfo.DataPosition,256);
+  
+  for (i = 0; i < 256; i++)
+  {
+    write(fichS,'+',1);
+  }
+  write(fichs,'+',1);
+  while(read(fichE,buff,1) != 0){
     write(fichS,buff,1);
    }
+   for (i = 0; i < 256; i++)
+  {
+    write(fichS,'+',1);
+  }
    close(fichE);
    close(fichS);
    return 0;
