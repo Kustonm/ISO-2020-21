@@ -36,11 +36,7 @@ int main(int argc , char *argv[]){
     comp.FileInfo.Compress = "n";
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
-    if(comp.FileInfo.DataPosition != 0){
-      comp.FileInfo.DataPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
-    }else{
-      comp.FileInfo.DataPosition = 0;
-    }
+    comp.FileInfo.DataPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
     int i = 0;
     for (i; i < sizeof(argv[1]); i++)
     {
@@ -53,8 +49,20 @@ int main(int argc , char *argv[]){
     write(fichS,'+',1);
   }
   write(fichS,'\n',1);
-  write(fichs,"+ Tipo: %c +\n + Compresion: %c + \n + Tamano: %lu + \n + TamanoComp: %lu + \n + Nombre: %c + \n + DataPos: %lu + \n",
-                                comp.FileInfo.Type,comp.FileInfo.Compress,size,comp.FileInfo.CompSize,comp.FileInfo.DataFileName[i],comp.FileInfo.DataPosition,256);
+  write(fichS,"+ Tipo: ",256);
+  write(fichS,comp.FileInfo.Type,256);
+  write(fichS," Compresion: ",256);
+  write(fichS,comp.FileInfo.Compress,256);
+  write(fichS," Tamano: ",256);
+  write(fichS,comp.FileInfo.DataSize,256);
+  write(fichS," TamanoComp: ",256);
+  write(fichS,comp.FileInfo.CompSize,256);
+  write(fichS," Nombre: ",256);
+  wirte(fichS,comp.FileInfo.DataFileName,256);
+  write(fichS," DataPos: ",256);
+  write(fichS,comp.FileInfo.DatPosition,256);
+  write(fichS," +\n",16);
+  
   
   for (i = 0; i < 256; i++)
   {
