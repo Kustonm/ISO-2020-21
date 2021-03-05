@@ -16,7 +16,7 @@ int main(int argc , char *argv[]){
   
   int fichE;
 
-  if(argc < 2){
+  if(argc < 3){
    fprintf(stderr,"Numero de argumentos erroneo \n");
    exit(1);
   }
@@ -24,6 +24,11 @@ int main(int argc , char *argv[]){
   if( fichE == -1){
    fprintf(stderr,"Fichero inexistente \n");
    exit(2);
+  }
+  
+  if(open(argv[2],O_RDONLY,0600) == -1){
+    fprintf(stderr, "Introduzca el nombre del fichero de salida \n");
+    exit(3);
   }
 
   long size = lseek(argv[1], SEEK_END,0);
