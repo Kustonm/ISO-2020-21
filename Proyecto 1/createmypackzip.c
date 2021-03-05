@@ -27,8 +27,8 @@ int main(int argc , char *argv[]){
   if(open(argv[2],O_RDONLY,0600) == -1){
     int fichE;
     fichE = open(argv[1],O_RDONLY ,0600);
-    comp.FileInfo.Type = "\0";
-    comp.FileInfo.Compress = "n";
+    comp.FileInfo.Type = 'z';
+    comp.FileInfo.Compress = 'n';
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
     comp.FileInfo.DatPosition = 0; //ToDO: En caso de anidacion hay que tener en cuenta donde empieza la siguiente seccion de datos.
@@ -38,14 +38,16 @@ int main(int argc , char *argv[]){
       comp.FileInfo.DataFileName[i] = argv[1][i];
     }
    vector.vHead[0] = comp;
-   int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
-  for (i = 0; i < 256; i++)
+  int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
+  for (i = 0; i < 30; i++)
   {
-    write(fichS,'+',1);
+    write(fichS,"+",1);
   }
-  write(fichS,'\n',1);
-  write(fichS,"+ Tipo: ",256);
-  write(fichS,comp.FileInfo.Type,256);
+  //printf(comp.FileInfo.Type);
+  char n = comp.FileInfo.Type;
+  write(fichS,"\n",1);
+  write(fichS,"+ Tipo: ",8);
+  write(fichS,n,10);
   write(fichS," Compresion: ",256);
   write(fichS,comp.FileInfo.Compress,256);
   write(fichS," Tamano: ",256);
@@ -53,23 +55,22 @@ int main(int argc , char *argv[]){
   write(fichS," TamanoComp: ",256);
   write(fichS,comp.FileInfo.CompSize,256);
   write(fichS," Nombre: ",256);
-  wirte(fichS,comp.FileInfo.DataFileName,256);
+  write(fichS,comp.FileInfo.DataFileName,256);
   write(fichS," DataPos: ",256);
   write(fichS,comp.FileInfo.DatPosition,256);
-  write(fichS," +\n",16);
-  
-  
-  for (i = 0; i < 256; i++)
+  write(fichS," +",16);
+  for (i = 0; i < 30; i++)
   {
-    write(fichS,'+',1);
+    write(fichS,"+",1);
   }
-  write(fichs,'+',1);
+  write(fichS,"+",1);
+ 
   while(read(fichE,buff,1) != 0){
     write(fichS,buff,1);
    }
-   for (i = 0; i < 256; i++)
+   for (i = 0; i < 30; i++)
   {
-    write(fichS,'+',1);
+    write(fichS,"+",1);
   }
    close(fichE);
    close(fichS);
