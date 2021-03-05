@@ -32,7 +32,8 @@ int main(int argc , char *argv[]){
     comp.FileInfo.Compress = "n";
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
-    for (int i = 0; i < sizeof(argv[1]); i++)
+    int i = 0;
+    for (i; i < sizeof(argv[1]); i++)
     {
       comp.FileInfo.DataFileName[i] = argv[1][i];
     }
