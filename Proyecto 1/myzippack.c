@@ -20,8 +20,7 @@ int main(int argc , char *argv[]){
    fprintf(stderr,"Numero de argumentos erroneo \n");
    exit(1);
   }
-  fichE = open(argv[1],O_RDONLY ,0600);
-  if( fichE == -1){
+  if( open(argv[1],O_RDONLY ,0600) == -1){
    fprintf(stderr,"Fichero inexistente \n");
    exit(2);
   }
@@ -33,7 +32,8 @@ int main(int argc , char *argv[]){
 
   long size = lseek(argv[1], SEEK_END,0);
   char buff [512];
-  if(argc == 2){
+  if(open(argv[2],O_RDONLY,0600) == -1){
+    fichE = open(argv[1],O_RDONLY ,0600);
     comp.FileInfo.Type = "\0";
     comp.FileInfo.Compress = "n";
     comp.FileInfo.DataSize = size;
@@ -44,7 +44,7 @@ int main(int argc , char *argv[]){
       comp.FileInfo.DataFileName[i] = argv[1][i];
     }
    vector.vHead[0] = comp;
-   int fichS = open(argv[2],O_CREAT,0600);
+   int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
    while(read(fichE,buff,1) != -1){
     write(fichS,buff,1);
    }
@@ -52,7 +52,7 @@ int main(int argc , char *argv[]){
    close(fichS);
    return 0;
   }else{
-   int fich1 = open(argv[1],O_WRONLY, 0600);
+   int fich1 = open(argv[1],O_RDONLY, 0600);
    int fich2 = open(argv[2],O_WRONLY, 0600);
    while(read(fich1,buff,1) != -1){
     write(fich2,buff,1);
