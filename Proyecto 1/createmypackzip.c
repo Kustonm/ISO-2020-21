@@ -36,6 +36,11 @@ int main(int argc , char *argv[]){
     comp.FileInfo.Compress = "n";
     comp.FileInfo.DataSize = size;
     comp.FileInfo.CompSize = size;
+    if(comp.FileInfo.DataPosition != 0){
+      comp.FileInfo.DataPosition = comp.FileInfo.DataPosition +1;
+    }else{
+      comp.FileInfo.DataPosition = 0;
+    }
     int i = 0;
     for (i; i < sizeof(argv[1]); i++)
     {
