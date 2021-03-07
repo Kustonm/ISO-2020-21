@@ -17,16 +17,17 @@ int main(int argc , char *argv[]){
    fprintf(stderr,"Numero de argumentos erroneo \n");
    exit(1);
   }
-  if(open(argv[1],O_RDONLY ,0600) == -1){
+  int fichE = open(argv[1],O_RDONLY ,0600);
+  if(fichE == -1){
    fprintf(stderr,"Fichero inexistente \n");
    exit(2);
   }
 
   long size = lseek(argv[1], SEEK_END,0);
   char buff [512];
+  char sizeS[256];
+  sprintf(sizeS,"%ld",size);
   if(open(argv[2],O_RDONLY,0600) == -1){
-    int fichE;
-    fichE = open(argv[1],O_RDONLY ,0600);
     comp.FileInfo.Type = 'z';
     comp.FileInfo.Compress = 'n';
     comp.FileInfo.DataSize = size;
@@ -39,7 +40,8 @@ int main(int argc , char *argv[]){
     }
    vector.vHead[0] = comp;
   int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
-  for (i = 0; i < 30; i++)
+  int j;  
+  for (j = 0; j < 80; j++)
   {
     write(fichS,"+",1);
   }
@@ -48,18 +50,18 @@ int main(int argc , char *argv[]){
   write(fichS,"\n",1);
   write(fichS,"+ Tipo: ",8);
   write(fichS,n,10);
-  write(fichS," Compresion: ",256);
-  write(fichS,comp.FileInfo.Compress,256);
-  write(fichS," Tamano: ",256);
-  write(fichS,comp.FileInfo.DataSize,256);
-  write(fichS," TamanoComp: ",256);
-  write(fichS,comp.FileInfo.CompSize,256);
-  write(fichS," Nombre: ",256);
+  write(fichS," Compresion: ",strlen(" Compresion: "));
+  write(fichS,comp.FileInfo.Compress,1);
+  write(fichS," Tamano: ",strlen(" Tamano: "));
+  write(fichS,sizeS,strlen(SizeS));
+  write(fichS," TamanoComp: ",strlen(" TamanoComp: "));
+  write(fichS,sizeS,strlen(sizeS));
+  write(fichS," Nombre: ",strlen(" Nombre: "));
   write(fichS,comp.FileInfo.DataFileName,256);
-  write(fichS," DataPos: ",256);
-  write(fichS,comp.FileInfo.DatPosition,256);
+  write(fichS," DataPos: ",strlen(" DataPos: "));
+  write(fichS,"0",1); // ToDo: Conseguiir indice
   write(fichS," +",16);
-  for (i = 0; i < 30; i++)
+  for (i = 0; i < 80; i++)
   {
     write(fichS,"+",1);
   }
@@ -68,7 +70,7 @@ int main(int argc , char *argv[]){
   while(read(fichE,buff,1) != 0){
     write(fichS,buff,1);
    }
-   for (i = 0; i < 30; i++)
+   for (i = 0; i < 80; i++)
   {
     write(fichS,"+",1);
   }
