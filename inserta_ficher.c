@@ -44,7 +44,7 @@ int main(argc [], char* argv[]){
  exit(5);
  }
 
- fstat(fich1, &mDates;
+ fstat(fich1, &mDates);
 
  if(mDates.FileInfo.DatPosition = id){
  fprintf(stderr, "Posicion en uso en uso, utilize otro");

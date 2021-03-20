@@ -39,14 +39,10 @@ int main(int argc , char *argv[]){
     {
       comp.FileInfo.DataFileName[i] = argv[1][i];
     }
-   vector.vHead[0] = comp;
-   int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
-  for (i = 0; i < 80; i++)
-  {
-    write(fichS,"+",1);
-  }
+  vector.vHead[0] = comp;
+  int fichS = open(argv[2],O_CREAT|O_RDWR,0600);
   write(fichS,"\n",strlen("\n"));
-  write(fichS,"+ Tipo: ",strlen("+ Tipo: "));
+  write(fichS,"Tipo: ",strlen("Tipo: "));
   write(fichS,&comp.FileInfo.Type,1);
   write(fichS," Compresion: ",strlen(" Compresion: "));
   write(fichS,&comp.FileInfo.Compress,1);
@@ -58,27 +54,15 @@ int main(int argc , char *argv[]){
   write(fichS,comp.FileInfo.DataFileName,strlen(comp.FileInfo.DataFileName));
   write(fichS," DataPos: ",strlen(" DataPos: "));
   write(fichS,"0", strlen("0")); // ToDo: conseguir parametro con DataPos
-  write(fichS," +\n",strlen(" +\n"));
+  write(fichS," \n",strlen(" \n"));
 
 
-  for (i = 0; i < 82; i++)
-  {
-    write(fichS,"+",strlen("+"));
-  }
-
-  write(fichS,"+",strlen("+"));
-
- 
   write(fichS,"\n",strlen("\n"));
-
+  lseek(fichE,SEEK_SET,0);
   while(read(fichE,buff,1) != 0){
     write(fichS,buff,1);
    }
 
-   for (i = 0; i < 80; i++)
-  {
-    write(fichS,"+",1);
-  }
   write(fichS,"\n",strlen("\n"));
    close(fichE);
    close(fichS);
