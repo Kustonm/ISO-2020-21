@@ -81,7 +81,8 @@ int insertar_fichero(char *file_mypackzip, char *file_dat, int index)
             fprintf(stderr, "Error al abrir el fichero %s. \n", file_mypackzip);
             return -1;
         }
-        for (int j = 0; j <= index; j++)
+        int j;
+        for (j = 0; j <= index; j++)
             bzero(&(lista.vHead[j]), S_HEADER_SIZE);
     
         if(directorio){
