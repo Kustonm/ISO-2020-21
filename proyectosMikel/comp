@@ -1,0 +1,5 @@
+gcc -o time_cheker time_cheker.c
+gcc -o my_sh2 my_sh2.c
+gcc -o my_sh3 my_sh3.c
+gcc -o num_conexiones num_conexiones.c
+gcc -o num_cuentas num_cuentas.c
